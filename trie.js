@@ -1,4 +1,5 @@
 /* jshint node: true */
+/* jshint esversion: 6 */
 
 "use strict";
 
@@ -12,7 +13,7 @@ function str_trie_insert(trie, word) {
 }
 
 function str_trie_lookup(trie, word) {
-  word.split('').forEach(function (c) { if (!(trie = trie[c])) return false; });
+  word.split('').forEach(c => { if (!(trie = trie[c])) return false; });
   return trie['.'] ? true : false;
 }
 

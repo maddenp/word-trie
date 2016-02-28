@@ -4,11 +4,7 @@
 "use strict";
 
 function str_trie_insert(trie, word) {
-  var letters = word.split('');
-  for (var i = 0; i < letters.length; i++) {
-    var c = letters[i];
-    trie = (trie[c] = trie[c] || {});
-  }
+  word.split('').forEach(c => { trie = (trie[c] = trie[c] || {}); });
   trie['.'] = true;
 }
 

@@ -3,14 +3,14 @@
 
 "use strict";
 
-function trie_insert(trie, word) {
+const trie_insert = (trie, word) => {
   word.split('').forEach(c => { trie = (trie[c] = trie[c] || {}); });
   trie['.'] = true;
-}
+};
 
-function trie_lookup(trie, word) {
-  return word.split('').every(c => trie = trie[c]) && trie['.'] ? true : false;
-}
+const trie_lookup = (trie, word) => (
+  word.split('').every(c => trie = trie[c]) && trie['.'] !== undefined
+);
 
 var fs = require('fs');
 var readline = require('readline');
@@ -26,8 +26,6 @@ var words = ['apple', 'banana', 'apples', 'bana'];
 
 reader.on('close', function () {
   words.forEach(word => {
-//     console.log('### checking ' + word);
-//     console.log(JSON.stringify(trie, null, 2));
     console.log('### ' + word + ': ' + trie_lookup(trie, word));
   });
 });

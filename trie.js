@@ -5,19 +5,14 @@
 function str_trie_insert(trie, word) {
   var letters = word.split('');
   for (var i = 0; i < letters.length; i++) {
-    var letter = letters[i];
-    trie = (trie[letter] = trie[letter] || {letter: undefined});
+    var c = letters[i];
+    trie = (trie[c] = trie[c] || {});
   }
   trie['.'] = true;
 }
 
 function str_trie_lookup(trie, word) {
-  var letters = word.split('');
-  for (var i = 0; i < letters.length; i++) {
-    var letter = letters[i];
-    trie = trie[letter];
-    if (trie === undefined) return false;
-  }
+  word.split('').forEach(function (c) { if (!(trie = trie[c])) return false; });
   return trie['.'] ? true : false;
 }
 
@@ -33,4 +28,7 @@ reader.on('line', function (word) {
 
 reader.on('close', function () {
   console.log(JSON.stringify(trie, null, 2));
+  console.log('apple: ' + str_trie_lookup(trie, 'apple'));
+  console.log('apples: ' + str_trie_lookup(trie, 'apples'));
+  console.log('bana: ' + str_trie_lookup(trie, 'bana'));
 });

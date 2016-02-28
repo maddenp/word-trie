@@ -14,7 +14,7 @@ function str_trie_insert(trie, word) {
 
 function str_trie_lookup(trie, word) {
   word.split('').forEach(c => { if (!(trie = trie[c])) return false; });
-  return trie['.'] ? true : false;
+  return trie['.'];
 }
 
 var fs = require('fs');

@@ -8,18 +8,18 @@ function str_trie_insert(trie, word) {
     var letter = letters[i];
     trie = (trie[letter] = trie[letter] || {letter: undefined});
   }
-  trie['.'] = '';
+  trie['.'] = true;
 }
 
-// function str_trie_lookup(trie, key) {
-//   if (!trie['>']) return undefined;
-//   for (var i = 0; i < key.length; i++) {
-//     var digit = digit_in_pos(key, i);
-//     console.log('lookup: ' + digit);
-//     if (!(trie = trie['>'][digit])) return undefined;
-//   }
-//   return trie['val'];
-// }
+function str_trie_lookup(trie, word) {
+  var letters = word.split('');
+  for (var i = 0; i < letters.length; i++) {
+    var letter = letters[i];
+    trie = trie[letter];
+    if (trie === undefined) return false;
+  }
+  return trie['.'] ? true : false;
+}
 
 var fs = require('fs');
 var readline = require('readline');

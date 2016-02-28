@@ -9,8 +9,7 @@ function trie_insert(trie, word) {
 }
 
 function trie_lookup(trie, word) {
-  word.split('').forEach(c => { if (!(trie = trie[c])) return false; });
-  return trie['.'];
+  return word.split('').every(c => trie = trie[c]) && trie['.'] ? true : false;
 }
 
 var fs = require('fs');
@@ -23,9 +22,12 @@ reader.on('line', function (word) {
   trie_insert(trie, word);
 });
 
+var words = ['apple', 'banana', 'apples', 'bana'];
+
 reader.on('close', function () {
-  console.log(JSON.stringify(trie, null, 2));
-  console.log('apple: ' + trie_lookup(trie, 'apple'));
-  console.log('apples: ' + trie_lookup(trie, 'apples'));
-  console.log('bana: ' + trie_lookup(trie, 'bana'));
+  words.forEach(word => {
+//     console.log('### checking ' + word);
+//     console.log(JSON.stringify(trie, null, 2));
+    console.log('### ' + word + ': ' + trie_lookup(trie, word));
+  });
 });

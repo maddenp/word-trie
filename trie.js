@@ -3,29 +3,23 @@
 
 "use strict";
 
-const trie_insert = (trie, word) => {
+module.exports.insert = (trie, word) => {
   word.split('').forEach(c => { trie = (trie[c] = trie[c] || {}); });
   trie['.'] = true;
 };
 
-const trie_lookup = (trie, word) => (
+module.exports.make = (infile, outfile) => {
+
+  const fs = require('fs');
+  const rl = require('readline');
+  const reader = rl.createInterface({input: fs.createReadStream(infile)});
+  const trie = {};
+
+  reader.on('line', word => module.exports.insert(trie, word) );
+  reader.on('close', () => fs.writeFileSync(outfile, JSON.stringify(trie)));
+
+};
+
+module.exports.lookup = (trie, word) => (
   word.split('').every(c => trie = trie[c]) && trie['.'] !== undefined
 );
-
-var fs = require('fs');
-var readline = require('readline');
-var filename = 'test';
-var reader = readline.createInterface({input: fs.createReadStream(filename)});
-var trie = {};
-
-reader.on('line', function (word) {
-  trie_insert(trie, word);
-});
-
-var words = ['apple', 'banana', 'apples', 'bana'];
-
-reader.on('close', function () {
-  words.forEach(word => {
-    console.log('### ' + word + ': ' + trie_lookup(trie, word));
-  });
-});

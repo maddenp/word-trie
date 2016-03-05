@@ -5,13 +5,8 @@
 
 const fs = require('fs');
 const lookup = require('./trie').lookup;
-
-const readfile = infile => {
-  return JSON.parse(fs.readFileSync(infile, 'utf8'));
-};
-
 const prompt = () => process.stdout.write('> ');
-const trie = readfile('trie.json');
+const trie = JSON.parse(fs.readFileSync('trie.json', 'utf8'));
 
 require('readline').createInterface({input: process.stdin}).on('line', word => {
   console.log(lookup(trie, word));

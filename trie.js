@@ -15,7 +15,7 @@ module.exports.make = (infile, outfile) => {
   const reader = rl.createInterface({input: fs.createReadStream(infile)});
   const trie = {};
 
-  reader.on('line', word => module.exports.insert(trie, word) );
+  reader.on('line', word => module.exports.insert(trie, word));
   reader.on('close', () => fs.writeFileSync(outfile, JSON.stringify(trie)));
 
 };

@@ -6,7 +6,10 @@
 const fs = require('fs');
 const lookup = require('./trie').lookup;
 const prompt = () => process.stdout.write('> ');
-const trie = JSON.parse(fs.readFileSync('trie.json', 'utf8'));
+const zlib = require('zlib');
+
+var compressed = new Buffer(fs.readFileSync('trie.gz', 'utf8'), 'base64')
+var trie = JSON.parse(zlib.gunzipSync(compressed).toString());
 
 require('readline').createInterface({input: process.stdin}).on('line', word => {
   console.log(lookup(trie, word));

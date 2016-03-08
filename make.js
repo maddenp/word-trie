@@ -3,4 +3,4 @@
 
 "use strict";
 
-require('./trie').make('words', 'trie.json');
+require('./trie').make('words', 'trie.gz');

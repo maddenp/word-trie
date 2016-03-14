@@ -1,3 +1,6 @@
 {
-  "private": true
+  "private": true,
+  "scripts": {
+    "get-words": "wget https://github.com/atebits/Words/blob/master/Words/en.txt?raw=true -O words"
+  }
 }

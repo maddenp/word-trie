@@ -3,4 +3,4 @@
 
 "use strict";
 
-require('./trie').make('en.txt', 'trie.gz');
+require('./trie').make('words', 'trie.gz');

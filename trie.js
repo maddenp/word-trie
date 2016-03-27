@@ -11,17 +11,15 @@ module.exports.insert = (trie, word) => {
 module.exports.make = (infile, outfile) => {
 
   const fs = require('fs');
-  const rl = require('readline');
+  const reader = require('readline').createInterface({input: fs.createReadStream(infile)});
   const trie = {};
   const zlib = require('zlib');
 
-  const reader = rl.createInterface({input: fs.createReadStream(infile)});
-
   reader.on('line', word => module.exports.insert(trie, word));
 
-  reader.on('close', () => {
-    fs.writeFileSync(outfile, zlib.gzipSync(JSON.stringify(trie), {level: 9}).toString('base64'), 'ascii');
-  });
+  reader.on('close', () => (
+    fs.writeFileSync(outfile, zlib.gzipSync(JSON.stringify(trie), {level: 9}).toString('base64'), 'ascii')
+  ));
 
 };
 

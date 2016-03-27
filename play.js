@@ -36,6 +36,16 @@ const word_check = (trie, rndstr, word) => {
   return NOWORD;
 };
 
+const word_score = word => {
+  var score = word.length;
+  const re = /[a-z]*([A-Z].*[A-Z])[a-z]*/;
+  const interior = re.exec(word)[1];
+  for (var i = 0; i < interior.length; i++) {
+    if (interior[i].match(/[a-z]/)) ++score;
+  }
+  return score;
+};
+
 require('readline').createInterface({input: process.stdin}).on('line', word => {
   switch (word) {
   case '.b':
@@ -51,6 +61,9 @@ require('readline').createInterface({input: process.stdin}).on('line', word => {
   default:
     var word_status = word_check(trie, rndstr, word);
     console.log(responses[word_status]);
+    if (word_status === MATCH) {
+      console.log('score: ' + word_score(word));
+    }
     break;
   }
   query(rndstr);

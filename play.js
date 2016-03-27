@@ -7,11 +7,11 @@ const fs = require('fs');
 const lookup = require('./trie').lookup;
 const zlib = require('zlib');
 
-const responses = {
-  match: 'Match!',
-  nomatch: 'Not a match...',
-  noword: 'Not a word!'
-};
+const MATCH = 0;
+const NOMATCH = 1;
+const NOWORD = 2;
+
+const responses = ['Match!', 'Not a match...', 'Not a word!'];
 
 const random_number = (lo, hi) => (
   Math.floor(Math.random() * (hi - lo) + lo)
@@ -22,7 +22,7 @@ const random_string = () => (
 );
 
 const query = rndstr => {
-  console.log('match: ' + rndstr);
+  console.log(rndstr);
   process.stdout.write('> ')
 };
 
@@ -30,10 +30,10 @@ const word_check = (trie, rndstr, word) => {
   if (lookup(trie, word.toLowerCase())) {
     const letters = word.split('');
     const caps = letters.reduce((s, c) => s + (c === c.toUpperCase() ? c : ''), '');
-    if (caps === rndstr) return 'match';
-    return 'nomatch';
+    if (caps === rndstr) return MATCH;
+    return NOMATCH;
   }
-  return 'noword';
+  return NOWORD;
 };
 
 require('readline').createInterface({input: process.stdin}).on('line', word => {

@@ -37,13 +37,9 @@ const word_check = (trie, rndstr, word) => {
 };
 
 const word_score = word => {
-  var score = word.length;
   const re = /[a-z]*([A-Z].*[A-Z])[a-z]*/;
-  const interior = re.exec(word)[1];
-  for (var i = 0; i < interior.length; i++) {
-    if (interior[i].match(/[a-z]/)) ++score;
-  }
-  return score;
+  const interior = re.exec(word)[1].split('');
+  return word.length + interior.reduce((m, e) => m + (e.match(/[a-z]/) ? 1 : 0), 0);
 };
 
 require('readline').createInterface({input: process.stdin}).on('line', word => {

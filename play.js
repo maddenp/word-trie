@@ -65,7 +65,7 @@ require('readline').createInterface({input: process.stdin}).on('line', word => {
   query(rndstr);
 });
 
-const compressed = new Buffer(fs.readFileSync('trie.gz', 'ascii'), 'base64')
+const compressed = new Buffer.from(fs.readFileSync('trie.gz', 'ascii'), 'base64')
 const trie = JSON.parse(zlib.gunzipSync(compressed).toString());
 
 var rndstr = undefined;

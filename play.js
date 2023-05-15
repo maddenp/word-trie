@@ -54,6 +54,8 @@ require('readline').createInterface({input: process.stdin}).on('line', word => {
     console.log('[next]');
     rndstr = random_string();
     break;
+  case '.q':
+    process.exit();
   default:
     var word_status = word_check(trie, rndstr, word);
     console.log(responses[word_status]);

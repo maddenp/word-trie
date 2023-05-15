@@ -11,7 +11,7 @@ const MATCH = 0;
 const NOMATCH = 1;
 const NOWORD = 2;
 
-const responses = ['Match!', 'Not a match...', 'Not a word!'];
+const responses = ['Match!', 'Not a match...', 'Word not found'];
 
 const random_number = (lo, hi) => (
   Math.floor(Math.random() * (hi - lo) + lo)
